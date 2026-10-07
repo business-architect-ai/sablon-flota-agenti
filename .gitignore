@@ -1,0 +1,25 @@
+# Chitanțele și starea lacătului sunt produse de cod, la rulare
+.verificari/
+
+# Ciorne de lucru ale agenților
+ciorne/
+
+# Artefacte de unelte
+.playwright-mcp/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Conținutul lucrărilor nu intră în șablon. Structura folderelor rămâne,
+# prin fișierele CITESTE.md.
+campanie/brand/*
+campanie/brief/*
+campanie/strategie/*
+campanie/livrabile/*
+!campanie/*/CITESTE.md
+
+# Memoria unei flote care a rulat deja
+orchestrator/memorie/*
+!orchestrator/memorie/CITESTE.md

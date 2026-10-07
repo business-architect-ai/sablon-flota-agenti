@@ -1,0 +1,8 @@
+# Prefixele rolurilor flotei, câte unul pe linie.
+# Fiecare prefix e și numele folderului rolului, din rădăcina flotei.
+# Orchestratorul nu se trece aici.
+research-strategie
+director-marketing
+copywriter
+creator-carusele
+web-designer
