@@ -15,8 +15,9 @@ if [ -z "$BASH_VERSION" ]; then
 fi
 
 AICI="$(cd "$(dirname "$0")" && pwd)"
-RADACINA="$(cd "$AICI/../.." && pwd)"
-ROLURI="$AICI/../roluri.txt"
+ORCHESTRATOR="$(cd "$AICI/.." && pwd)"
+RADACINA="$(cd "$ORCHESTRATOR/.." && pwd)"
+ROLURI="$ORCHESTRATOR/roluri.txt"
 
 if [ ! -f "$ROLURI" ]; then
   echo "flota.sh: lipsește $ROLURI. Scrie în el prefixele rolurilor, câte unul pe linie." >&2

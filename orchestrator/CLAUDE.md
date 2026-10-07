@@ -126,8 +126,14 @@ După ce ai deschis fișierul unui pas și înainte să pornești pasul următor
 
 Ieșirea 0 înseamnă contract respectat, treci mai departe. Ieșirea 1 înseamnă abateri: **nu
 pornești pasul următor**, ceri agentului care a scris fișierul exact ce a raportat scriptul,
-cuvânt cu cuvânt, și nu reformulezi. Ieșirea 2 e eroarea ta de chemare, nu spune nimic despre
-fișier: te uiți la cale și chemi din nou.
+cuvânt cu cuvânt, și nu reformulezi.
+
+**Ieșirea 2 nu spune nimic despre livrabile, și are două cauze.** Dacă mesajul e despre cale
+sau folosire, e greșeala ta de chemare: te uiți la cale și chemi din nou. Dacă spune
+`NECONFIGURAT`, atunci ori flota n-a produs încă nimic, ori numele de fișiere din script sunt
+încă cele ale flotei-exemplu. În al doilea caz scriptul nu te poate ajuta până nu e adaptat,
+și i-o spui omului. În niciunul din cele două nu opri lanțul ca la ieșirea 1: o oprire pe un
+folder gol ar fi falsă.
 
 Avertismentele („DE PRIVIT") nu opresc lanțul.
 

@@ -101,11 +101,28 @@ def normalizeaza(t):
     return re.sub(r"\s+", " ", t).strip()
 
 
+class Neconfigurat(Exception):
+    """Scriptul nu a fost adaptat la flota asta, sau flota n-a produs nimic.
+
+    Nu e abatere de contract: nu spune nimic despre livrabile. De-aia iese cu 2,
+    nu cu 1. Un `Nu porni pasul următor` pe un folder gol ar fi o oprire falsă.
+    """
+
+
 def verifica(rad, strict=False):
     abateri, avertismente = [], []
     copy_md = rad / "copy.md"
 
     if not copy_md.is_file():
+        # Folder fără niciun livrabil: ori flota n-a produs încă nimic, ori
+        # numele din constantele de sus sunt încă cele ale flotei-exemplu.
+        if not [p for p in rad.iterdir() if p.is_file() and p.name != "CITESTE.md"]:
+            raise Neconfigurat(
+                "nu există niciun livrabil în {}.\n"
+                "Dacă flota n-a produs încă nimic, e normal: nu ai ce verifica.\n"
+                "Dacă a produs, atunci numele de fișiere din script sunt încă cele ale "
+                "flotei-exemplu. Adaptează-le la livrabilele flotei tale (vezi comentariul "
+                "din capul fișierului).".format(rad))
         return ["lipsește `copy.md`, nu există contract de verificat"], []
 
     foi = foi_de_text(rad)
@@ -174,7 +191,11 @@ def main():
         return 2
 
     print("Contract, în {}".format(rad))
-    abateri, avertismente = verifica(rad, "--strict" in sys.argv)
+    try:
+        abateri, avertismente = verifica(rad, "--strict" in sys.argv)
+    except Neconfigurat as e:
+        print("  NECONFIGURAT: {}".format(e))
+        return 2
 
     for a in avertismente:
         print("  DE PRIVIT: {}".format(a))
