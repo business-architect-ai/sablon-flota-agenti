@@ -29,6 +29,8 @@ Ce diferă la el sunt numele rolurilor și ale livrabilelor, iar alea sunt locur
 
 ## Cum pornești
 
+0. Citește `docs/PRINCIPII.md`. Pașii de mai jos sunt mecanici; documentul ăla e motivul
+   pentru care sunt ăștia și nu alții.
 1. Clonează repo-ul și dă-i numele flotei tale. Folderul în care îl pui devine rădăcina
    flotei: orchestratorul și fiecare rol stau ca subfoldere ale lui, lângă `campanie/`.
 2. Scrie în `orchestrator/roluri.txt` prefixele rolurilor tale, câte unul pe linie. Vin
@@ -48,11 +50,16 @@ Ce diferă la el sunt numele rolurilor și ale livrabilelor, iar alea sunt locur
 
 ## Documentația
 
-`docs/METODOLOGIE.md`, **citește-o prima.** Explică de ce modul atelier și modul flotă se
-exclud, și de ce o sesiune pornită nu recitește fișierele pe care i le editezi sub ea.
+`docs/PRINCIPII.md`, **citește-o prima, înainte să atingi fișierele.** Ce e orchestrarea, de ce
+nu merge cu un singur agent, ce dai la schimb, și cum se construiește o flotă pornind de la
+livrabile, nu de la roluri. Fără ea poți completa șablonul, dar nu știi ce să schimbi când
+flota ta arată altfel.
 
-`docs/INSTALARE-AGENT.md`, cum construiești un rol și la ce te uiți în întrebările pe care
-ți le pune skill-ul.
+`docs/METODOLOGIE.md`, a doua. De ce modul atelier și modul flotă se exclud, și de ce o
+sesiune pornită nu recitește fișierele pe care i le editezi sub ea.
+
+`docs/INSTALARE-AGENT.md`, procedura de adăugare a unui rol în flotă, și cât de greu să fie un
+agent.
 
 `docs/SABLON-AGENT.md`, la ce e fiecare dintre cele șase fișiere ale unui rol și ce greșeală
 face dacă e scris prost. Îl citești în timp ce completezi `agent-sablon/`.
