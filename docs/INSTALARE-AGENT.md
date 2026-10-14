@@ -1,40 +1,41 @@
 # Instalarea unui agent în flotă
 
-Procedura de adăugare a unui agent nou, fie construit de la zero cu `onboarding-agent`, fie
-luat din biblioteca de agenți.
+Procedura de adăugare a unui rol nou în flotă, indiferent cum ai ajuns la fișierele lui:
+scrise de mână, construite cu skill-ul `onboarding-agent` sau luate de la un agent existent
+și adaptate.
 
 **Se face în mod atelier, cu flota oprită.** Vezi `METODOLOGIE.md`. Dacă instalezi în timp ce
 flota rulează, orchestratorul nu va ști de agentul nou până la repornire, iar tu vei crede că
 instalarea a eșuat.
 
-## Decizia de versiune: rămânem pe v2.0
+## Cât de greu să fie un agent
 
-**Decis 2026-10-05.** Linia de orchestrare rămâne pe `onboarding-agent` v2.0, cel cu `FLUX.md`
-și fără lacăt. Nu aducem v3.1 aici și nu migrăm agenții existenți.
+Pentru o flotă al cărei subiect e **orchestrarea**, adică cine vorbește cu cine și unde ajunge
+munca, un agent ușor e de preferat. Un agent ușor are o singură meserie, fișierele lui de rol
+și nimic altceva: fără script de verificare, fără hook-uri, fără subagent evaluator.
 
-Motivul: subiectul e orchestrarea, cine vorbește cu cine și unde ajunge munca. Lacătul din
-v3.1 aduce trei piese care pot pica pe o mașină străină (Python, hook-uri, subagent), niciuna
-nu e necesară pentru orchestrare, iar procedura lui de migrare e netestată, inclusiv pe
-Windows.
+Motivul nu e lenea. Bucla de verificare cu lacăt aduce trei piese care pot pica pe o mașină
+străină (Python, hook-uri, subagent), iar niciuna nu e necesară ca să înțelegi sau să arăți
+orchestrarea. Dacă prima ta flotă pică din cauza unui hook, n-ai învățat nimic despre
+orchestrare, ai învățat despre hook-uri.
 
-Un agent v2 e corect așa cum e: `FLUX.md` ține și pașii, și criteriile („Verific înainte să
-livrez"), o singură meserie, fără skill-uri, deci o singură sursă pentru fiecare întrebare.
+**Nevoia de evaluare se acoperă cu un evaluator chemat de agent**, nu cu un lacăt care îl
+obligă. Fără lacăt, chemarea rămâne voluntară, iar singura verificare impusă e cea a
+orchestratorului: fișierul există și nu e gol. E un compromis asumat, nu o omisiune.
 
-**Nevoile de evaluare se acoperă cu un evaluator**, nu cu lacătul. Fără lacăt, chemarea
-evaluatorului rămâne voluntară, iar singura verificare impusă e cea a orchestratorului:
-fișierul există și nu e gol. E un compromis asumat, nu o omisiune.
+Când merită totuși bucla completă, cu lacăt: pe rolurile unde **greșeala e tăcută și intră în
+amonte**, adică acolo unde un livrabil greșit devine materie primă pentru toți ceilalți și
+nimeni nu mai verifică. De obicei e primul rol din lanț. Vezi
+`docs/exemplu-flota-marketing.md`, secțiunea despre un rol cu buclă și unul fără.
+
+Adaugă bucla pe un rol anume, după ce flota merge. Nu pe toate, și nu înainte.
 
 ## Prefixele ocupate
 
 Prefixul unui agent e numele folderului lui și, în același timp, numele rolului în flotă.
-Ocupate acum:
+Două roluri nu pot avea același prefix, fiindcă atunci nu se mai pot deosebi la adresare.
 
-```
-copywriter  creator-carusele  director-marketing  orchestrator
-publisher  research-strategie  web-designer
-```
-
-Verifică lista pe disc înainte, nu din memorie:
+Nu ține lista minte și nu o copia de nicăieri, citește-o de pe disc:
 
 ```
 for d in */; do [ -f "$d/CLAUDE.md" ] && echo "$d"; done
@@ -122,10 +123,11 @@ neterminat: textul pică și consumă o rundă de reparare pe ceva ce nu era gat
 lacăt, un livrabil pe jumătate în fișierul declarat îl face pe orchestrator să treacă la pasul
 următor, fiindcă el verifică doar că fișierul există și nu e gol.
 
-## Dacă construiești un agent pe v3.1: ce urmărești la întrebări
+## Dacă agentul primește buclă de verificare: ce urmărești la întrebări
 
-Skill-ul pune întrebările, dar două răspunsuri pot strica evaluatorul fără să se vadă până la
-prima rulare. Le refuzi pe loc, nu le repari după.
+Se aplică atunci când construiești un rol cu evaluator și criterii proprii, cu skill-ul sau
+de mână. Două răspunsuri pot strica evaluatorul fără să se vadă până la prima rulare. Le
+refuzi pe loc, nu le repari după.
 
 **Întrebările de judecată trebuie să stea singure.** O întrebare formulată relativ la mostră („e
 la fel de aprofundat ca exemplul", „are aceeași structură") nu se poate răspunde, fiindcă
