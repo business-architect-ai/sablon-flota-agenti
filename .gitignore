@@ -1,8 +1,11 @@
 # Chitanțele și starea lacătului sunt produse de cod, la rulare
 .verificari/
 
-# Ciorne de lucru ale agenților
+# Ciorne de lucru ale agenților. Scheletul își păstrează folderul.
 ciorne/
+!agent-sablon/ciorne/
+agent-sablon/ciorne/*
+!agent-sablon/ciorne/CITESTE.md
 
 # Artefacte de unelte
 .playwright-mcp/

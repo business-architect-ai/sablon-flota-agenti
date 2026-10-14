@@ -9,18 +9,23 @@ singură: **orchestratorul**, **contractul folderului comun** și **documentați
 
 | Ai | Nu ai |
 |---|---|
-| orchestratorul, cu regulile lui | agenții specialiști |
-| folderul comun și contractul lui | conținut de lucrare (texte, imagini, research) |
-| scriptul de adrese și cel de contract | fișele de brand ale cuiva |
-| metodologia și ghidul de instalare | memoria vreunei flote care a rulat deja |
+| orchestratorul, cu regulile lui | roluri gata făcute |
+| scheletul unui rol, de completat | conținut de lucrare (texte, imagini, research) |
+| folderul comun și contractul lui | fișele de brand ale cuiva |
+| scriptul de adrese și cel de contract | memoria vreunei flote care a rulat deja |
+| metodologia și ghidul de instalare | dependențe: fără Python, fără hook-uri |
 
-Specialiștii **nu** sunt în șablon fiindcă nu se copiază, se construiesc. Pentru fiecare rol
-rulezi skill-ul `onboarding-agent`, care îți pune întrebări despre meseria rolului și scrie
-el `CLAUDE.md`, `IDENTITY.md`, `VERIFICARE.md`, `SOUL.md`, `USER.md`, `TOOLS.md`,
-`MEMORY.md`, subagentul evaluator, scriptul de verificare și lacătul. Un rol copiat de la
-altcineva are fișa altcuiva, și se vede imediat în livrabile.
+Rolurile **nu** vin gata făcute, fiindcă un rol copiat de la altcineva are fișa altcuiva, și
+se vede imediat în livrabile. Ce primești e `agent-sablon/`, cele șase fișiere ale unui rol cu
+locurile de completat, plus folderele de lucru. Îl copiezi o dată pentru fiecare rol și îl
+completezi.
 
-Orchestratorul e singurul pe care skill-ul nu îl construiește, de-aia e aici.
+Partea care nu se copiază, meseria rolului, o scrii tu. Dacă vrei, o scrii **conversațional**:
+deschizi o sesiune în folderul rolului și ceri să fii întrebat, fișier cu fișier, despre ce
+face rolul. Întrebările sunt în `docs/SABLON-AGENT.md`, la fiecare fișier.
+
+Orchestratorul vine completat, cu mecanismul lui întreg, fiindcă el e la fel în orice flotă.
+Ce diferă la el sunt numele rolurilor și ale livrabilelor, iar alea sunt locurile `<...>`.
 
 ## Cum pornești
 
@@ -30,8 +35,13 @@ Orchestratorul e singurul pe care skill-ul nu îl construiește, de-aia e aici.
    completate cu exemplul de marketing, le înlocuiești.
 3. Completează locurile marcate cu `<...>` din `orchestrator/CLAUDE.md`, `USER.md`,
    `MEMORY.md` și `TOOLS.md`. Restul textului e mecanismul și merge așa cum e.
-4. Pentru fiecare rol, creează folderul lui și rulează `onboarding-agent` în el. Citește
-   înainte `docs/INSTALARE-AGENT.md`.
+4. Pentru fiecare rol, copiază `agent-sablon/` în folderul rolului și completează cele șase
+   fișiere. Citește înainte `docs/SABLON-AGENT.md`, care spune la ce e fiecare fișier și ce
+   greșeală face dacă e scris prost, și `docs/INSTALARE-AGENT.md` pentru procedură.
+   Exemplu, pentru un rol numit `documentare`:
+
+       cp -R agent-sablon documentare
+
 5. Adaptează numele de fișiere din `orchestrator/scripts/verifica_livrabil.py` la livrabilele
    flotei tale. Logica rămâne, numele se schimbă.
 6. Deschide o sesiune în `orchestrator/` și cere-i apelul de prezență.
@@ -44,7 +54,8 @@ exclud, și de ce o sesiune pornită nu recitește fișierele pe care i le edite
 `docs/INSTALARE-AGENT.md`, cum construiești un rol și la ce te uiți în întrebările pe care
 ți le pune skill-ul.
 
-`docs/SABLON-AGENT.md`, structura fișierelor unui rol, ca referință.
+`docs/SABLON-AGENT.md`, la ce e fiecare dintre cele șase fișiere ale unui rol și ce greșeală
+face dacă e scris prost. Îl citești în timp ce completezi `agent-sablon/`.
 
 `docs/spec-reset-campanie.md`, specificația unui script de golire a folderului comun între
 două lucrări. **Scriptul nu e scris**, documentul explică doar problema și ce nu se atinge.
